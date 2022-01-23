@@ -129,19 +129,23 @@ class _GNavState extends State<GNav> {
                       duration: widget.duration,
                       onPressed: () {
                         if (!clickable) return;
+                        if(mounted){
                         setState(() {
                           selectedIndex = widget.tabs.indexOf(t);
                           clickable = false;
                         });
+                        }
 
                         t.onPressed?.call();
 
                         widget.onTabChange?.call(selectedIndex);
 
                         Future.delayed(widget.duration, () {
+                          if(mounted){
                           setState(() {
                             clickable = true;
                           });
+                          }
                         });
                       },
                     ))
